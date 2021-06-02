@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<robot name="husky" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:property name="M_PI" value="3.14159"/>
+
+  <link name="base_link"/>
+
+  <link name="lslidarc16"/>
+  <joint name="lslidarc16_joint" type="fixed">
+    <origin xyz="0.31934 0 0.25611" rpy="0 -0.174533 ${M_PI}" />
+    <parent link="base_link" />
+    <child link="lslidarc16" />
+  </joint>
+</robot>
