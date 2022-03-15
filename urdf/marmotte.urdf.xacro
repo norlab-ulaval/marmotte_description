@@ -2,39 +2,49 @@
 
 <robot name="marmotte" xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:property name="M_PI" value="3.14159"/>
+  <!-- horizontal, horizontal_90, vertical -->
+  <xacro:property name="configuration" value="horizontal"/>
 
   <link name="base_link"/>
 
-  <link name="lidar_imu_mount_horizontal"/>
-  <joint name="lidar_imu_mount_horizontal_joint" type="fixed">
-      <origin xyz="0.19834 0.06 0.26011" rpy="0 -0.178 0" />
-      <parent link="base_link" />
-      <child link="lidar_imu_mount_horizontal" />
-  </joint>
+
+  <xacro:if value="${configuration != 'vertical'}">
+    <link name="lidar_imu_mount_horizontal"/>
+    <joint name="lidar_imu_mount_horizontal_joint" type="fixed">
+        <origin xyz="0.19834 0.06 0.26011" rpy="0 0.178 0" />
+        <parent link="base_link" />
+        <child link="lidar_imu_mount_horizontal" />
+    </joint>
+  </xacro:if>
+
+  <!-- Vertical board -->
+  <xacro:if value="${configuration == 'vertical'}">
+    <link name="lidar_imu_mount_vertical"/>
+    <joint name="lidar_imu_mount_vertical_joint" type="fixed">
+        <origin xyz="0.17834 -0.02 0.38378" rpy="${M_PI/2} 0.178 0" />
+        <parent link="base_link" />
+        <child link="lidar_imu_mount_vertical" />
+    </joint>
+  </xacro:if>
 
   <link name="lidar_imu_board"/>
   <joint name="lidar_imu_board_joint" type="fixed">
-      <origin xyz="0 0 0.039" rpy="0 0 0" />
-      <parent link="lidar_imu_mount_horizontal" />
+      <xacro:if value="${configuration != 'horizontal_90'}">
+        <origin xyz="0 0 0.039" rpy="0 0 0" />
+      </xacro:if>
+      <xacro:if value="${configuration == 'horizontal_90'}">
+        <origin xyz="0 0 0.039" rpy="0 0 ${M_PI/2}" />
+      </xacro:if>
+      <xacro:if value="${configuration != 'vertical'}">
+        <parent link="lidar_imu_mount_horizontal" />
+      </xacro:if>
+      <xacro:if value="${configuration == 'vertical'}">
+        <parent link="lidar_imu_mount_vertical" />
+      </xacro:if>
       <child link="lidar_imu_board" />
   </joint>
 
 
-  <!-- Vertical board -->
-
-  <!-- <link name="lidar_imu_mount_vertical"/>
-  <joint name="lidar_imu_mount_vertical_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="0 0.0 ${M_PI}" />
-      <parent link="base_link" />
-      <child link="lidar_imu_mount_vertical" />
-  </joint> -->
-
-    <!-- <link name="lidar_imu_board"/>
-    <joint name="lidar_imu_board_joint" type="fixed">
-        <origin xyz="0.25834 0 0.30611" rpy="0 -0.178 ${M_PI}" />
-        <parent link="lidar_imu_mount_vertical" />
-        <child link="lidar_imu_board" />
-    </joint> -->
 
 
   <link name="lslidarc16"/>
@@ -59,5 +69,5 @@
   </joint>
 
   <!-- Cameras -->
-  <xacro:include filename="$(find marmotte_description)/urdf/cameras.urdf.xacro"/>
+  <!-- <xacro:include filename="$(find marmotte_description)/urdf/cameras.urdf.xacro"/> -->
 </robot>
