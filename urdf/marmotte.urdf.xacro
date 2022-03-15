@@ -5,11 +5,50 @@
 
   <link name="base_link"/>
 
+  <link name="lidar_imu_mount_horizontal"/>
+  <joint name="lidar_imu_mount_horizontal_joint" type="fixed">
+      <origin xyz="0.19834 0.06 0.26011" rpy="0 -0.178 0" />
+      <parent link="base_link" />
+      <child link="lidar_imu_mount_horizontal" />
+  </joint>
+
+  <link name="lidar_imu_board"/>
+  <joint name="lidar_imu_board_joint" type="fixed">
+      <origin xyz="0 0 0.039" rpy="0 0 0" />
+      <parent link="lidar_imu_mount_horizontal" />
+      <child link="lidar_imu_board" />
+  </joint>
+
+
+  <!-- Vertical board -->
+
+  <!-- <link name="lidar_imu_mount_vertical"/>
+  <joint name="lidar_imu_mount_vertical_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0.0 ${M_PI}" />
+      <parent link="base_link" />
+      <child link="lidar_imu_mount_vertical" />
+  </joint> -->
+
+    <!-- <link name="lidar_imu_board"/>
+    <joint name="lidar_imu_board_joint" type="fixed">
+        <origin xyz="0.25834 0 0.30611" rpy="0 -0.178 ${M_PI}" />
+        <parent link="lidar_imu_mount_vertical" />
+        <child link="lidar_imu_board" />
+    </joint> -->
+
+
   <link name="lslidarc16"/>
   <joint name="lslidarc16_joint" type="fixed">
-    <origin xyz="0.25834 0 0.30611" rpy="0 -0.178 ${M_PI}" />
-    <parent link="base_link" />
+    <origin xyz="0.06 -0.06 0.036" rpy="0 0 ${M_PI/2}" />
+    <parent link="lidar_imu_board" />
     <child link="lslidarc16" />
+  </joint>
+
+  <link name="imu"/>
+  <joint name="imu_joint" type="fixed">
+    <origin xyz="0.039254 -0.04274357 -0.0161" rpy="$(M_PI) 0 0" />
+    <parent link="lidar_imu_board" />
+    <child link="imu" />
   </joint>
 
   <link name="realsense_link"/>
