@@ -69,5 +69,5 @@
   </joint>
 
   <!-- Cameras -->
-  <!-- <xacro:include filename="$(find marmotte_description)/urdf/cameras.urdf.xacro"/> -->
+  <xacro:include filename="$(find marmotte_description)/urdf/cameras.urdf.xacro"/>
 </robot>
