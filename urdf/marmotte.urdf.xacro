@@ -3,7 +3,7 @@
 <robot name="marmotte" xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:property name="M_PI" value="3.14159"/>
   <!-- horizontal, horizontal_90, vertical -->
-  <xacro:property name="configuration" value="horizontal"/>
+  <xacro:property name="configuration" value="horizontal_90"/>
 
   <link name="base_link"/>
 
@@ -30,10 +30,10 @@
   <link name="lidar_imu_board"/>
   <joint name="lidar_imu_board_joint" type="fixed">
       <xacro:if value="${configuration != 'horizontal_90'}">
-        <origin xyz="0 0 0.039" rpy="0 0 0" />
+        <origin xyz="0.06 -0.06 0.039" rpy="0 0 0" />
       </xacro:if>
       <xacro:if value="${configuration == 'horizontal_90'}">
-        <origin xyz="0 0 0.039" rpy="0 0 ${M_PI/2}" />
+        <origin xyz="0.06 -0.06 0.039" rpy="0 0 ${M_PI/2}" />
       </xacro:if>
       <xacro:if value="${configuration != 'vertical'}">
         <parent link="lidar_imu_mount_horizontal" />
@@ -49,14 +49,14 @@
 
   <link name="lslidarc16"/>
   <joint name="lslidarc16_joint" type="fixed">
-    <origin xyz="0.06 -0.06 0.036" rpy="0 0 ${M_PI/2}" />
+    <origin xyz="0 0 0.036" rpy="0 0 ${M_PI}" />
     <parent link="lidar_imu_board" />
     <child link="lslidarc16" />
   </joint>
 
   <link name="imu"/>
   <joint name="imu_joint" type="fixed">
-    <origin xyz="0.039254 -0.04274357 -0.0161" rpy="${M_PI} 0 0" />
+    <origin xyz="-0.02075 0.01726 -0.0161" rpy="${M_PI} 0 0" />
     <parent link="lidar_imu_board" />
     <child link="imu" />
   </joint>
