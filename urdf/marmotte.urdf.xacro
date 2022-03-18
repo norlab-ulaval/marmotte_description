@@ -21,7 +21,7 @@
   <xacro:if value="${configuration == 'vertical'}">
     <link name="lidar_imu_mount_vertical"/>
     <joint name="lidar_imu_mount_vertical_joint" type="fixed">
-        <origin xyz="0.17834 -0.02 0.38378" rpy="${M_PI/2} 0.178 0" />
+        <origin xyz="0.17883 -0.02 0.36878" rpy="${M_PI/2} 0.178 0" />
         <parent link="base_link" />
         <child link="lidar_imu_mount_vertical" />
     </joint>
