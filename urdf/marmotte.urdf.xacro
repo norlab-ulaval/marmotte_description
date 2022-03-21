@@ -3,7 +3,7 @@
 <robot name="marmotte" xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:property name="M_PI" value="3.14159"/>
   <!-- horizontal, horizontal_90, vertical -->
-  <xacro:property name="configuration" value="horizontal_90"/>
+  <xacro:property name="configuration" value="horizontal"/>
 
   <link name="base_link"/>
 
@@ -54,11 +54,11 @@
     <child link="lslidarc16" />
   </joint>
 
-  <link name="imu"/>
+  <link name="mti100"/>
   <joint name="imu_joint" type="fixed">
     <origin xyz="-0.02075 0.01726 -0.0161" rpy="${M_PI} 0 0" />
     <parent link="lidar_imu_board" />
-    <child link="imu" />
+    <child link="mti100" />
   </joint>
 
   <link name="realsense_link"/>
