@@ -49,7 +49,8 @@
 
   <link name="velodyne"/>
   <joint name="velodyne_joint" type="fixed">
-    <origin xyz="0 0 0.0377" rpy="0 0 ${-M_PI/2}" />
+    <!-- <origin xyz="0 0 0.0377" rpy="0 0 ${-M_PI/2}" /> -->
+    <origin xyz="0 0 0.0377" rpy="0 0 0" />
     <parent link="lidar_imu_board" />
     <child link="velodyne" />
   </joint>
