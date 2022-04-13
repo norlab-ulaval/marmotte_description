@@ -47,11 +47,11 @@
 
 
 
-  <link name="lslidarc16"/>
-  <joint name="lslidarc16_joint" type="fixed">
-    <origin xyz="0 0 0.036" rpy="0 0 ${M_PI}" />
+  <link name="velodyne"/>
+  <joint name="velodyne_joint" type="fixed">
+    <origin xyz="0 0 0.0377" rpy="0 0 ${-M_PI/2}" />
     <parent link="lidar_imu_board" />
-    <child link="lslidarc16" />
+    <child link="velodyne" />
   </joint>
 
   <link name="mti100"/>
