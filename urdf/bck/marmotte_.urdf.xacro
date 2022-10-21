@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+
+<robot name="marmotte" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:property name="M_PI" value="3.14159"/>
+  <!-- horizontal, horizontal_90, vertical -->
+  <xacro:property name="configuration" value="horizontal"/>
+
+  <link name="base_link"/>
+
+
+  <xacro:if value="${configuration != 'vertical'}">
+    <link name="lidar_imu_mount_horizontal"/>
+    <joint name="lidar_imu_mount_horizontal_joint" type="fixed">
+        <origin xyz="0.19834 0.06 0.26011" rpy="0 0.178 0" />
+        <parent link="base_link" />
+        <child link="lidar_imu_mount_horizontal" />
+    </joint>
+  </xacro:if>
+
+  <!-- Vertical board -->
+  <xacro:if value="${configuration == 'vertical'}">
+    <link name="lidar_imu_mount_vertical"/>
+    <joint name="lidar_imu_mount_vertical_joint" type="fixed">
+        <origin xyz="0.17883 -0.02 0.36878" rpy="${M_PI/2} 0 0" />
+        <parent link="base_link" />
+        <child link="lidar_imu_mount_vertical" />
+    </joint>
+  </xacro:if>
+
+  <link name="lidar_imu_board"/>
+  <joint name="lidar_imu_board_joint" type="fixed">
+      <xacro:if value="${configuration != 'horizontal_90'}">
+        <origin xyz="0.06 -0.06 0.039" rpy="0 0 0" />
+      </xacro:if>
+      <xacro:if value="${configuration == 'horizontal_90'}">
+        <origin xyz="0.06 -0.06 0.039" rpy="0 0 ${M_PI/2}" />
+      </xacro:if>
+      <xacro:if value="${configuration != 'vertical'}">
+        <parent link="lidar_imu_mount_horizontal" />
+      </xacro:if>
+      <xacro:if value="${configuration == 'vertical'}">
+        <parent link="lidar_imu_mount_vertical" />
+      </xacro:if>
+      <child link="lidar_imu_board" />
+  </joint>
+
+
+
+
+  <link name="velodyne"/>
+  <joint name="velodyne_joint" type="fixed">
+    <!-- <origin xyz="0 0 0.0377" rpy="0 0 ${-M_PI/2}" /> -->
+    <origin xyz="0 0 0.0377" rpy="0 0 0" />
+    <parent link="lidar_imu_board" />
+    <child link="velodyne" />
+  </joint>
+
+  <link name="mti100"/>
+  <joint name="imu_joint" type="fixed">
+    <origin xyz="-0.02075 0.01726 -0.0161" rpy="${M_PI} 0 0" />
+    <parent link="lidar_imu_board" />
+    <child link="mti100" />
+  </joint>
+
+  <link name="realsense_link"/>
+  <joint name="realsense_joint" type="fixed">
+    <origin xyz="-0.31593 -0.0175 0.34488" rpy="0 0.558505 ${M_PI}" />
+    <parent link="base_link" />
+    <child link="realsense_link" />
+  </joint>
+
+  <!-- Cameras -->
+  <xacro:include filename="$(find marmotte_description)/urdf/cameras.urdf.xacro"/>
+  <!--xacro:include filename="$(find kinova-ros-2022)/kinova_description/urdf/j2n6s300.xacro"-->
+</robot>

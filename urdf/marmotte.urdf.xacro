@@ -44,6 +44,13 @@
     <limit lower="0" upper="0" effort="0" velocity="0"/>
   </joint>
 
+  <link name="velodyne"/>
+  <joint name="velodyne_joint" type="fixed">
+    <origin xyz="0 0 0.0377" rpy="0 0 0" />
+    <parent link="lidar_imu_board" />
+    <child link="velodyne" />
+  </joint>
+
   <!-- JOINT BETWEEN ARM AND BODY -->
   <joint name="body_arm" type="fixed">
     <parent link="base_link"/>
