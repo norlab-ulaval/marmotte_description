@@ -1,0 +1,5 @@
+<launch>
+  <node pkg="robot_state_publisher" exec="robot_state_publisher" name="robot_state_publisher">
+    <param name="robot_description" value="$(find-pkg-share xacro)/xacro $(find-pkg-share marmotte_description)/urdf/marmotte.urdf.xacro"/>
+  </node>
+</launch>
