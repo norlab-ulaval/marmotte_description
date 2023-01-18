@@ -1,24 +1,175 @@
-<?xml version="1.0"?>
-
+<?xml version="1.0" ?>
 <robot name="marmotte" xmlns:xacro="http://ros.org/wiki/xacro">
-  <xacro:property name="M_PI" value="3.14159"/>
+
+  <xacro:include filename="$(find kortex_description)/robots/gen3_robotiq_2f_85.xacro"/>
+  <xacro:include filename="$(find marmotte_description)/urdf/sensors.urdf.xacro"/>
+
+  <joint name="base_link_intial_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="base_link_chassis_CAD"/>
+    <origin xyz="0 0  0" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="base_link_to_sensor_rack" type="fixed">
+    <parent link="base_link_chassis_CAD"/>
+    <child link="sensor_rack_CAD"/>
+    <origin xyz="-0.19853 -0.19824  0.06899" rpy="0.e+00  0.e+00 -1.e-05"/>
+    <axis xyz="0 0 0"/>
+    <limit lower="0" upper="0" effort="0" velocity="0"/>
+  </joint>
+
+  <joint name="left_track_j" type="fixed">
+    <parent link="base_link_chassis_CAD"/>
+    <child link="left_track_CAD"/>
+    <origin xyz="0   0.26 0" rpy="0 0 0"/>
+    <axis xyz="0 0 0"/>
+    <limit lower="0" upper="0" effort="0" velocity="0"/>
+  </joint>
+
+  <joint name="right_track_j" type="fixed">
+    <parent link="base_link_chassis_CAD"/>
+    <child link="right_track_CAD"/>
+    <origin xyz="0   -0.26  0" rpy="0 0 0"/>
+    <axis xyz="0 0 0"/>
+    <limit lower="0" upper="0" effort="0" velocity="0"/>
+  </joint>
+
+  <joint name="body_arm" type="fixed">
+    <parent link="base_link"/>
+    <child link="arm_base_link"/>
+    <origin xyz="-0.072 0.02 0.326" rpy="0 0 ${M_PI}"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+  <joint name="base_basket" type="fixed">
+    <parent link="base_link"/>
+    <child link="basket_visualize"/>
+    <origin xyz="-0.2765 0 0.1" rpy="0 0 0"/>
+  </joint>
 
   <link name="base_link"/>
 
-  <link name="lslidarc16"/>
-  <joint name="lslidarc16_joint" type="fixed">
-    <origin xyz="0.25834 0 0.30611" rpy="0 -0.178 ${M_PI}" />
-    <parent link="base_link" />
-    <child link="lslidarc16" />
-  </joint>
+  <material name="black">
+    <color rgba="0.0 0.0 0.0 1.0"/>
+  </material>
 
-  <!--link name="realsense_link"/>
-  <joint name="realsense_joint" type="fixed">
-    <origin xyz="-0.31593 -0.0175 0.34488" rpy="0 0.558505 ${M_PI}" />
-    <parent link="base_link" />
-    <child link="realsense_link" />
-  </joint-->
+  <link name="basket_visualize">
+    <collision name="basket_visualize_collision">
+      <origin xyz="0    0    0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.193 0.393 0.02"/>
+      </geometry>
+    </collision>
+    <visual name="basket_visualize_visual">
+      <origin xyz="0     0    0" rpy="0   0   0"/>
+      <geometry>
+        <box size="0.193 0.393 0.02"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+  </link>
 
-  <!-- Cameras -->
-  <xacro:include filename="$(find marmotte_description)/urdf/cameras.urdf.xacro"/>
+  <link name="base_link_chassis_CAD">
+    <inertial>
+      <mass value="29.053"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="2.411" ixy="0.0" ixz="0.0" iyy="4.173" iyz="0.0" izz="4.745"/>
+    </inertial>
+    <collision name="base_link_collision_bottom">
+      <origin xyz="0    0    0.046" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.80 0.5709 0.2"/>
+      </geometry>
+    </collision>
+    <visual name="Body_visual">
+      <origin xyz="0     0    -0.135" rpy="0   0   1.57"/>
+      <geometry>
+        <mesh filename="package://marmotte_description/meshes/hd2_marble_base_body_metric.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <link name="sensor_rack_CAD">
+    <inertial>
+      <mass value="10.40255"/>
+      <origin xyz="0.28 0.2  0.06" rpy="0 0 0"/>
+      <inertia ixx="0.193" ixy="-0.0031" ixz="0.00912" iyy="0.301" iyz="0.00313" izz="0.35676"/>
+    </inertial>
+    <collision name="collision_base">
+      <origin xyz="0.275 0.2   0.075" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.56 0.4 0.15"/>
+      </geometry>
+    </collision>
+    <collision name="collision_top">
+      <origin xyz="0.15  0.2   0.215" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.28 0.4 0.13"/>
+      </geometry>
+    </collision>
+    <collision name="collision_laser">
+      <origin xyz="0.505 0.2   0.17" rpy="0   0.17 0"/>
+      <geometry>
+        <box size="0.135 0.13 0.13"/>
+      </geometry>
+    </collision>
+    <visual name="visual">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://marmotte_description/meshes/sensor_rack_lowres_shallow_laser.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <link name="left_track_CAD">
+    <inertial>
+      <mass value="6.0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0.03828" ixy="0" ixz="0" iyy="0.2925" iyz="0" izz="0.2642"/>
+    </inertial>
+    <collision name="front_left_wheel_link_collision">
+      <origin xyz="0.36 0   0" rpy="1.57079 0      0"/>
+      <geometry>
+        <cylinder radius="0.129" length="0.1"/>
+      </geometry>
+    </collision>
+    <collision name="rear_left_wheel_link_collision">
+      <origin xyz="-0.36  0    0" rpy="1.57079 0      0"/>
+      <geometry>
+        <cylinder radius="0.129" length="0.1"/>
+      </geometry>
+    </collision>
+    <collision name="left_track_box_collision">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.72 0.1 0.258"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="right_track_CAD">
+    <inertial>
+      <mass value="6.0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0.03828" ixy="0" ixz="0" iyy="0.2925" iyz="0" izz="0.2642"/>
+    </inertial>
+    <collision name="front_right_wheel_link_collision">
+      <origin xyz="0.36 0   0" rpy="1.57079 0      0"/>
+      <geometry>
+        <cylinder radius="0.129" length="0.1"/>
+      </geometry>
+    </collision>
+    <collision name="rear_right_wheel_link_collision">
+      <origin xyz="-0.36  0    0" rpy="1.57079 0      0"/>
+      <geometry>
+        <cylinder radius="0.129" length="0.1"/>
+      </geometry>
+    </collision>
+    <collision name="right_track_box_collision">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.72 0.1 0.258"/>
+      </geometry>
+    </collision>
+  </link>
 </robot>
