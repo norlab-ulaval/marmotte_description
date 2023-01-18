@@ -10,5 +10,8 @@ install(DIRECTORY launch
 
 install(DIRECTORY urdf
     DESTINATION share/${PROJECT_NAME})
+
+install(DIRECTORY new_urdf_01-16-2023
+	DESTINATION share/${PROJECT_NAME})
     
 ament_package()
