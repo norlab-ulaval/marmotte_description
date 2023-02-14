@@ -3,7 +3,7 @@
 
    <xacro:property name="M_PI" value="3.1415926535897931"/>
    <xacro:property name="length_cam" value="0.05" />
-   <xacro:property name="configuration_horizon_or_vert" value="false"/>      <!-- True: horiz or vert/ False: old without imu  -->
+   <xacro:property name="configuration_horizon_or_vert" value="true"/>      <!-- True: horiz or vert/ False: old without imu  -->
    <xacro:property name="configuration" value="horizontal"/>      <!-- horizontal, horizontal_90, vertical -->
 
    <xacro:if value="${configuration_horizon_or_vert}">
@@ -44,8 +44,7 @@
       </joint>
 
       <joint name="lidar_link_joint" type="fixed">
-         <!-- <origin xyz="0 0 0.0377" rpy="0 0 ${-M_PI/2}" /> -->
-         <origin xyz="0 0 0.0377" rpy="0 0 0" />
+          <origin xyz="0 0 0.0377" rpy="0 0 ${M_PI}" />
          <parent link="lidar_imu_board" />
          <child link="lidar_link" />
       </joint>
