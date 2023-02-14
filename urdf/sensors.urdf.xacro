@@ -53,7 +53,7 @@
       <joint name="imu_joint" type="fixed">
          <origin xyz="-0.02075 0.01726 -0.0161" rpy="${M_PI} 0 0" />
          <parent link="lidar_imu_board" />
-         <child link="mti100" />
+         <child link="imu" />
       </joint>
    <link name="lidar_imu_board"/>
    </xacro:if>
@@ -64,17 +64,17 @@
          <parent link="base_link" />
          <child link="lidar_link" />
       </joint>
-      <joint name="mti100_joint" type="fixed">
+      <joint name="imu_joint" type="fixed">
          <origin xyz="-0.05718 -0.103 0.2885" rpy="0 0 0" />
          <parent link="base_link" />
-         <child link="mti100" />
+         <child link="imu" />
       </joint>
    </xacro:unless>
 
 
    <link name="lidar_link"/>
    
-   <link name="mti100"/>
+   <link name="imu"/>
 
    <link name="camera0_link"/>
 
