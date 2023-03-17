@@ -50,7 +50,7 @@
       </joint>
 
       <joint name="imu_joint" type="fixed">
-         <origin xyz="-0.02075 0.01726 -0.0161" rpy="${M_PI} 0 0" />
+         <origin xyz="-0.02075 0.01726 -0.0161" rpy="${M_PI} 0.022837797 0" /> <!-- Calibration done on March 16th loop around vachon rosbag: rosbag2_2023_03_16-13_24_06 -->
          <parent link="lidar_imu_board" />
          <child link="imu" />
       </joint>
