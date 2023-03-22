@@ -125,7 +125,7 @@
   </material>
 
   <material name="yellow">
-    <color rgba="1.0 1.0 0.0 1.0"/>
+    <color rgba="0.51 0.33 0.1 1.0"/>
   </material>
 
   <link name="basket_visualize">
