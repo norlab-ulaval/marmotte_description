@@ -11,7 +11,7 @@
       <xacro:if value="${configuration != 'vertical'}">
          <link name="lidar_imu_mount_horizontal"/>
          <joint name="lidar_imu_mount_horizontal_joint" type="fixed">
-            <origin xyz="0.19834 0.06 0.26011" rpy="0 0.178 0" />
+            <origin xyz="0.19834 0.06 0.26011" rpy="0 0.174533 0" />
             <parent link="base_link" />
             <child link="lidar_imu_mount_horizontal" />
          </joint>
@@ -50,7 +50,7 @@
       </joint>
 
       <joint name="imu_joint" type="fixed">
-         <origin xyz="-0.02075 0.01726 -0.0161" rpy="${M_PI} 0.022837797 0" /> <!-- Calibration done on March 16th loop around vachon rosbag: rosbag2_2023_03_16-13_24_06 -->
+         <origin xyz="-0.02075 0.01726 -0.0161" rpy="${M_PI} 0.031454056 0" />
          <parent link="lidar_imu_board" />
          <child link="imu" />
       </joint>
@@ -72,7 +72,7 @@
 
 
    <link name="lidar_link"/>
-   
+
    <link name="imu"/>
 
    <link name="camera0_link"/>
@@ -85,10 +85,10 @@
 
    <link name="camera4_link"/>
 
-   <!-- <link name="camera5_link"/> -->  
+   <!-- <link name="camera5_link"/> -->
    <!-- <link name="realsense_link"/> -->
-  
-   
+
+
    <joint name="joint_lidar_camera0" type="fixed">
       <parent link="base_link" />
       <child link="camera0_link" />
