@@ -50,7 +50,7 @@
       </joint>
 
       <joint name="imu_joint" type="fixed">
-         <origin xyz="-0.02075 0.01726 -0.0161" rpy="${M_PI} 0.031454056 0" />
+         <origin xyz="-0.02075 0.01726 -0.0161" rpy="${M_PI} 0 0" />
          <parent link="lidar_imu_board" />
          <child link="imu" />
       </joint>
