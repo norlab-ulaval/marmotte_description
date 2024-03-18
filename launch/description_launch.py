@@ -9,7 +9,7 @@ from launch_ros.descriptions import ParameterValue
 
 def generate_launch_description():
     package = get_package_share_directory("marmotte_description")
-    xacro_path = os.path.join(package, "urdf/marmotte.urdf.xacro")
+    xacro_path = os.path.join(package, "urdf/robot.urdf.xacro")
 
     return LaunchDescription(
         [

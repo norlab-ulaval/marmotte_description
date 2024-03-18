@@ -175,4 +175,6 @@
       </geometry>
     </visual>
   </link>
+
+  <xacro:include filename="$(find marmotte_description)/urdf/arm.urdf.xacro"/>
 </robot>
