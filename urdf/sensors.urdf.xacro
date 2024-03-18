@@ -1,0 +1,145 @@
+<?xml version='1.0'?>
+<robot name="marmotte" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+   <xacro:property name="M_PI" value="3.1415926535897931"/>
+   <xacro:property name="length_cam" value="0.05" />
+   <xacro:property name="configuration_horizon_or_vert" value="true"/>      <!-- True: horiz or vert/ False: old without imu  -->
+   <xacro:property name="configuration" value="horizontal"/>      <!-- horizontal, horizontal_90, vertical -->
+
+   <xacro:if value="${configuration_horizon_or_vert}">
+      <!-- Horizontal board -->
+      <xacro:if value="${configuration != 'vertical'}">
+         <link name="lidar_imu_mount_horizontal"/>
+         <joint name="lidar_imu_mount_horizontal_joint" type="fixed">
+            <origin xyz="0.19834 0.06 0.26011" rpy="0 0.174533 0" />
+            <parent link="base_link" />
+            <child link="lidar_imu_mount_horizontal" />
+         </joint>
+      </xacro:if>
+
+      <!-- Vertical board -->
+      <xacro:if value="${configuration == 'vertical'}">
+         <link name="lidar_imu_mount_vertical"/>
+         <joint name="lidar_imu_mount_vertical_joint" type="fixed">
+            <origin xyz="0.17883 -0.02 0.36878" rpy="${M_PI/2} 0 0" />
+            <parent link="base_link" />
+            <child link="lidar_imu_mount_vertical" />
+         </joint>
+      </xacro:if>
+
+      <joint name="lidar_imu_board_joint" type="fixed">
+      <xacro:if value="${configuration != 'horizontal_90'}">
+         <origin xyz="0.06 -0.06 0.039" rpy="0 0 0" />
+      </xacro:if>
+      <xacro:if value="${configuration == 'horizontal_90'}">
+         <origin xyz="0.06 -0.06 0.039" rpy="0 0 ${M_PI/2}" />
+      </xacro:if>
+      <xacro:if value="${configuration != 'vertical'}">
+         <parent link="lidar_imu_mount_horizontal" />
+      </xacro:if>
+      <xacro:if value="${configuration == 'vertical'}">
+         <parent link="lidar_imu_mount_vertical" />
+      </xacro:if>
+      <child link="lidar_imu_board" />
+      </joint>
+
+      <joint name="lidar_link_joint" type="fixed">
+          <origin xyz="0 0 0.0377" rpy="0 0 ${M_PI}" />
+         <parent link="lidar_imu_board" />
+         <child link="lidar_link" />
+      </joint>
+
+      <joint name="imu_joint" type="fixed">
+         <origin xyz="-0.02075 0.01726 -0.0161" rpy="${M_PI} 0.031454056 0" />
+         <parent link="lidar_imu_board" />
+         <child link="imu" />
+      </joint>
+   <link name="lidar_imu_board"/>
+   </xacro:if>
+
+   <xacro:unless value="${configuration_horizon_or_vert}">
+      <joint name="lslidarc16_joint" type="fixed">
+         <origin xyz="0.25834 0 0.30611" rpy="0 -0.178 ${M_PI}" />
+         <parent link="base_link" />
+         <child link="lidar_link" />
+      </joint>
+      <joint name="imu_joint" type="fixed">
+         <origin xyz="-0.05718 -0.103 0.2885" rpy="0 0 0" />
+         <parent link="base_link" />
+         <child link="imu" />
+      </joint>
+   </xacro:unless>
+
+
+   <link name="lidar_link"/>
+
+   <link name="imu"/>
+
+   <link name="camera0_link"/>
+
+   <link name="camera1_link"/>
+
+   <link name="camera2_link"/>
+
+   <link name="camera3_link"/>
+
+   <link name="camera4_link"/>
+
+   <!-- <link name="camera5_link"/> -->
+   <!-- <link name="realsense_link"/> -->
+
+
+   <joint name="joint_lidar_camera0" type="fixed">
+      <parent link="base_link" />
+      <child link="camera0_link" />
+      <!--origin xyz="0.15809 0.12394 -0.08268" rpy="-1.167301 0.102245 0.949740" /--> <!--Before origin changed-->
+      <!--origin xyz="0.12759 0.1461 -0.07258" rpy="-1.167301 0.102245 0.949740" /--> <!-- After origin changed-->
+      <origin xyz="0.10593 -0.12806 0.219" rpy="-1.3089969389957472 0.0 -2.1991148575128556" /> <!-- 11/07/2022-->
+   </joint>
+
+   <joint name="joint_lidar_camera1" type="fixed">
+      <parent link="base_link" />
+      <child link="camera1_link" />
+      <!--origin xyz="0.34382 0.09629 -0.08268" rpy="-1.3634311444 0.165909317 -0.318686332" /--> <!--Before origin changed-->
+      <!--origin xyz="0.35547 0.13215 -0.07258" rpy="-1.3634311444 0.165909317 -0.318686332" /--> <!--After origin changed-->
+      <origin xyz="-0.08765 -0.10297 0.219" rpy="-1.3089969389957472 0.0 2.827433388230814" /> <!-- 11/07/2022-->
+   </joint>
+
+   <joint name="joint_lidar_camera2" type="fixed">
+      <parent link="base_link" />
+      <child link="camera2_link" />
+      <!--origin xyz="0.41006 -0.03625 -0.08268" rpy="-1.48352986 0 -1.57079632" /--> <!--Before origin changed-->
+      <!--origin xyz="0.45576 -0.03625 -0.07258" rpy="-1.48352986 0 -1.57079632" /--> <!--After origin changed-->
+      <origin xyz="-0.16674 0.03625 0.219" rpy="-1.3089969389957472 0.0 1.5707963267948966" /> <!-- 11/07/2022-->
+   </joint>
+
+   <joint name="joint_lidar_camera3" type="fixed">
+      <parent link="base_link" />
+      <child link="camera3_link" />
+      <!--origin xyz="0.27487 -0.11869 -0.08268" rpy="-1.3634311444 -0.165909317 -2.82290632" /--> <!--Before origin changed-->
+      <!--origin xyz="0.28652 -0.15455 -0.07258" rpy="-1.3634311444 -0.165909317 -2.82290632" /--> <!--After origin changed-->
+      <origin xyz="-0.0187 0.12537 0.219" rpy="-1.3089969389957472 0.0 0.3141592653589792" /> <!-- 11/07/2022-->
+   </joint>
+
+   <joint name="joint_lidar_camera4" type="fixed">
+      <parent link="base_link" />
+      <child link="camera4_link" />
+      <!--origin xyz="0.11548 -0.06528 -0.08268" rpy="-1.167301 -0.102245 2.19185" /--> <!--Before origin changed-->
+      <!--origin xyz="0.08497 -0.08744 -0.07258" rpy="-1.167301 -0.102245 2.19185" /--> <!--After origin changed-->
+      <origin xyz="0.14854 0.06941 0.219" rpy="-1.3089969389957472 2.220446049250313e-16 -0.9424777960769379" /> <!-- 11/07/2022-->
+   </joint>
+
+   <!-- <joint name="joint_lidar_camera5" type="fixed">
+      <parent link="lidar_link" />
+      <child link="camera5_link" />
+      <origin xyz="0.33903 0 0.05769" rpy="0.1745329 0 1.57079632" /> <Before origin changed>
+      <origin xyz="0.33403 0 0.11308" rpy="0.1745329 0 1.57079632" /> <After origin changed>
+   </joint> -->
+
+
+  <!-- <joint name="realsense_joint" type="fixed">
+      <origin xyz="-0.31593 -0.0175 0.34488" rpy="0 0.558505 ${M_PI}" />
+      <parent link="base_link" />
+      <child link="realsense_link" />
+  </joint> -->
+</robot>
