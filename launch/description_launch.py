@@ -25,5 +25,11 @@ def generate_launch_description():
                     }
                 ],
             ),
+            Node(
+                package="tf2_ros",
+                executable="static_transform_publisher",
+                name="static_transform_publisher",
+                arguments=["-0.08", "0", "0.347", "0", "0", "0", "base_link", "arm_base_link"],
+            ),
         ]
     )
