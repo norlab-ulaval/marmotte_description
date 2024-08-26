@@ -142,4 +142,13 @@
       <parent link="base_link" />
       <child link="realsense_link" />
   </joint> -->
+
+  <link name="dps310_marmotte" />
+  <joint name="dps310_marmotte_joint" type="fixed">
+    <origin xyz="0.335 0.02 0.02" rpy="0 0.174533 0" />
+    <parent link="lidar_link" />
+    <child link="dps310_marmotte" />
+  </joint>
+
+  
 </robot>
