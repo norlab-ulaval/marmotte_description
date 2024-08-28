@@ -21,7 +21,7 @@ def generate_launch_description():
                     Command(["xacro ", config_file]), value_type=str
                 )
         }],
-    ),
+    )
     return LaunchDescription([
             description_node
         ])
