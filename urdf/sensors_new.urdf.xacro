@@ -13,7 +13,7 @@
          <joint name="lidar_imu_mount_horizontal_joint" type="fixed">
             <!-- <origin xyz="-0.19466 0.06 0.41811" rpy="0 0.174533 ${M_PI}" /> -->
             <!-- <origin xyz="0.19834 0.06 0.26011" rpy="0 0.174533 0" /> -->
-            <origin xyz="0.19834 0.06 0.346975" rpy="0 0 0" />
+            <origin xyz="-0.08866 0 0.393975" rpy="0 0 ${M_PI}" />
             <parent link="base_link" />
             <child link="lidar_imu_mount_horizontal" />
          </joint>
@@ -148,7 +148,7 @@
 
   <link name="dps310_marmotte" />
   <joint name="dps310_marmotte_joint" type="fixed">
-    <origin xyz="0.305 -0.02 -0.085" rpy="0 0.0 0" />
+    <origin xyz="-0.115 -0.02 -0.122" rpy="0 0.0 0" />
     <parent link="lidar_link" />
     <child link="dps310_marmotte" />
   </joint>
